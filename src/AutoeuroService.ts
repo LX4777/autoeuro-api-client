@@ -4,10 +4,10 @@ import type {
   GetBalanceResponse, GetBrandsResponse,
   GetDeliveriesResponse,
   GetPayersResponse,
-  GetWarehousesResponse,
+  GetWarehousesResponse, SearchBrandsResponse,
 } from './Response.js';
 import type { AxiosResponse } from 'axios';
-import type { GetWarehousesRequestData } from './RequestData.js';
+import type { GetWarehousesRequestData, SearchBrandsRequestData } from './RequestData.js';
 
 export class AutoeuroService extends ApiClient {
   constructor(config: ApiClientConfig) {
@@ -36,5 +36,9 @@ export class AutoeuroService extends ApiClient {
 
   async getBrands(): Promise<GetBrandsResponse> {
     return this.getResponse<GetBrandsResponse>(this.request<GetBrandsResponse>('/get_brands'));
+  }
+
+  async searchBrands(data: SearchBrandsRequestData): Promise<SearchBrandsResponse> {
+    return this.getResponse<SearchBrandsResponse>(this.request<SearchBrandsResponse>('/search_brands', data));
   }
 }
