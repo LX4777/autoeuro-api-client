@@ -55,3 +55,25 @@ export type SearchBrandsResponse = Response<{
   code: string;
   name: string;
 }>
+
+export type SearchItemsResponse = Response<{
+  offer_key: string;
+  stock: 0 | 1;
+  cross: null | 0 | 1 | 2 | 3 | 10 | 11 | 12;
+  brand: string;
+  code: string;
+  name: string;
+  packing: number;
+  price: string;
+  currency: string;
+  amount: number;
+  unit: string;
+  return: '0' | '1';
+  order_before: string;
+  delivery_time: string;
+  delivery_time_max: string;
+  rejects: number;
+  dealer: 0 | 1;
+  warehouse_name: string;
+  warehouse_key: string;
+}>
