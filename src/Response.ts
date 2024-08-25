@@ -106,3 +106,10 @@ export type GetOrdersResponse = Response<{
   delivery_date: string;
   order_key: string;
 }>
+
+export type GetStatusesResponse = Response<{
+  group: string;
+  status_id: number;
+  name: string;
+  description: string;
+}>
