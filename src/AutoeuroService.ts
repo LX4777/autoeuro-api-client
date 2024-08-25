@@ -1,9 +1,9 @@
 import { ApiClient } from './ApiClient.js';
-import { ApiClientConfig } from './Contracts/ApiClientConfig.js';
-import { GetBalanceResponse } from './Response.js';
-import { AxiosResponse } from 'axios';
+import type { ApiClientConfig } from './Contracts/ApiClientConfig.js';
+import type { GetBalanceResponse, GetDeliveriesResponse } from './Response.js';
+import type { AxiosResponse } from 'axios';
 
-class AutoeuroService extends ApiClient {
+export class AutoeuroService extends ApiClient {
   constructor(config: ApiClientConfig) {
     super(config);
   }
@@ -14,5 +14,9 @@ class AutoeuroService extends ApiClient {
 
   async getBalance(): Promise<GetBalanceResponse> {
     return this.getResponse<GetBalanceResponse>(this.request<GetBalanceResponse>('/get_balance'));
+  }
+
+  async getDeliveries(): Promise<GetDeliveriesResponse> {
+    return this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
   }
 }
