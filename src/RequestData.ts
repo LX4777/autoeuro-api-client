@@ -13,3 +13,17 @@ export type SearchItemsRequestData = {
   with_crosses: 0|1;
   with_offers: 0|1;
 }
+
+export type CreateOrderRequestData = {
+  delivery_key: string;
+  payer_key: string;
+  stock_items: {
+    offer_key: string;
+    quantity: number;
+    price?: number;
+    comment?: string;
+  }[];
+  wait_all_goods?: 0 | 1;
+  comment?: string;
+  delivery_date?: string;
+}
