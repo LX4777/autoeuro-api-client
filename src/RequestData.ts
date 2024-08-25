@@ -10,8 +10,8 @@ export type SearchItemsRequestData = {
   brand: string;
   code: string;
   delivery_key: string;
-  with_crosses: 0|1;
-  with_offers: 0|1;
+  with_crosses?: 0 | 1;
+  with_offers?: 0 | 1;
 }
 
 export type CreateOrderRequestData = {
