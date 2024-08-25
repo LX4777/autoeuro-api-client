@@ -77,3 +77,9 @@ export type SearchItemsResponse = Response<{
   warehouse_name: string;
   warehouse_key: string;
 }>
+
+export type CreateOrderResponse = Response<{
+  order_id: number;
+  result: boolean;
+  result_description: string;
+}>
