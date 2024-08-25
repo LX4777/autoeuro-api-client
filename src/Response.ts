@@ -40,3 +40,8 @@ export type GetWarehousesResponse = Response<{
   warehouse_key: string;
   warehouse_name: string;
 }>
+
+export type GetPayersResponse = Response<{
+  payer_name: string;
+  payer_key: string;
+}>
