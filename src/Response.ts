@@ -28,3 +28,9 @@ export type GetBalanceResponse = Response<{
   shipping_from: number;
   active: 0 | 1;
 }>
+
+export type GetDeliveriesResponse = Response<{
+  delivery_key: string;
+  name: string;
+  time_shift_msk: number;
+}>
