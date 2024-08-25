@@ -8,7 +8,7 @@ export type Response<T> = {
     user_id: string;
   };
 } & {
-  DATA: T;
+  DATA: T[];
   ERROR: never;
 } | {
   DATA: never;
