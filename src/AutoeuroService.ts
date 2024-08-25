@@ -1,7 +1,7 @@
 import { ApiClient } from './ApiClient.js';
 import type { ApiClientConfig } from './Contracts/ApiClientConfig.js';
 import type {
-  GetBalanceResponse,
+  GetBalanceResponse, GetBrandsResponse,
   GetDeliveriesResponse,
   GetPayersResponse,
   GetWarehousesResponse,
@@ -32,5 +32,9 @@ export class AutoeuroService extends ApiClient {
 
   async getPayers(): Promise<GetPayersResponse> {
     return this.getResponse<GetPayersResponse>(this.request<GetPayersResponse>('/get_payers'));
+  }
+
+  async getBrands(): Promise<GetBrandsResponse> {
+    return this.getResponse<GetBrandsResponse>(this.request<GetBrandsResponse>('/get_brands'));
   }
 }
