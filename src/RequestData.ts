@@ -38,7 +38,7 @@ export type GetOrdersRequestData = RequireOnlyOne<{
   filters: {
     from: string;
     to: string;
-    delivery_key?: string;
+    delivery_key: string;
     payer_key?: string;
   };
 }>;
