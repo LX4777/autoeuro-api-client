@@ -4,7 +4,7 @@ import type {
   CreateOrderResponse,
   GetBalanceResponse, GetBrandsResponse,
   GetDeliveriesResponse, GetOrdersResponse,
-  GetPayersResponse,
+  GetPayersResponse, GetStatusesResponse,
   GetWarehousesResponse, SearchBrandsResponse, SearchItemsResponse,
 } from './Response.js';
 import type { AxiosResponse } from 'axios';
@@ -58,5 +58,9 @@ export class AutoeuroService extends ApiClient {
 
   async getOrders(data: GetOrdersRequestData): Promise<GetOrdersResponse> {
     return this.getResponse<GetOrdersResponse>(this.request('/get_orders', data));
+  }
+
+  async getStatuses(): Promise<GetStatusesResponse> {
+    return this.getResponse<GetStatusesResponse>(this.request<GetStatusesResponse>('/get_statuses'));
   }
 }
