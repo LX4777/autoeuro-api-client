@@ -2,18 +2,26 @@
   "name": "autoeuro-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js"
+    }
+  },
   "type": "module",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "rimraf ./build && npx tsc",
-    "start": "npm run build && node build/index",
+    "build": "rimraf ./dist && tsc",
+    "start": "node dist/index.js",
+    "start:dev": "npm run build && npm run dev",
     "lint": "npx eslint ./src",
-    "format": "npx eslint ./src --fix"
+    "format": "npx prettier --write './src/**/*.{ts,js,json}'",
+    "prepare": "husky install"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Vasiliy Rozhkov <profilrv@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.6.0",
     "@types/eslint__js": "^8.42.3",
