@@ -45,3 +45,7 @@ export type GetPayersResponse = Response<{
   payer_name: string;
   payer_key: string;
 }>
+
+export type GetBrandsResponse = Response<{
+  brand: string;
+}>
