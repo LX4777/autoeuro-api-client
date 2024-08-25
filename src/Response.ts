@@ -34,3 +34,9 @@ export type GetDeliveriesResponse = Response<{
   name: string;
   time_shift_msk: number;
 }>
+
+export type GetWarehousesResponse = Response<{
+  warehouse_id: string;
+  warehouse_key: string;
+  warehouse_name: string;
+}>
