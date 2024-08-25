@@ -1,7 +1,8 @@
 import { ApiClient } from './ApiClient.js';
 import type { ApiClientConfig } from './Contracts/ApiClientConfig.js';
-import type { GetBalanceResponse, GetDeliveriesResponse } from './Response.js';
+import type { GetBalanceResponse, GetDeliveriesResponse, GetWarehousesResponse } from './Response.js';
 import type { AxiosResponse } from 'axios';
+import type { GetWarehousesRequestData } from './RequestData.js';
 
 export class AutoeuroService extends ApiClient {
   constructor(config: ApiClientConfig) {
@@ -18,5 +19,9 @@ export class AutoeuroService extends ApiClient {
 
   async getDeliveries(): Promise<GetDeliveriesResponse> {
     return this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
+  }
+
+  async getWarehouses(data: GetWarehousesRequestData): Promise<GetWarehousesResponse> {
+    return this.getResponse<GetWarehousesResponse>(this.request<GetWarehousesResponse>('/get_warehouses', data));
   }
 }
