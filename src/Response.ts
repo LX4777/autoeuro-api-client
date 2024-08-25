@@ -49,3 +49,9 @@ export type GetPayersResponse = Response<{
 export type GetBrandsResponse = Response<{
   brand: string;
 }>
+
+export type SearchBrandsResponse = Response<{
+  brand: string;
+  code: string;
+  name: string;
+}>
