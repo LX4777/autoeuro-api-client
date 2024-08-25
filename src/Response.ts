@@ -83,3 +83,26 @@ export type CreateOrderResponse = Response<{
   result: boolean;
   result_description: string;
 }>
+
+export type GetOrdersResponse = Response<{
+  brand: string;
+  code: string;
+  name: string;
+  price: number;
+  amount: number;
+  unit: string;
+  dealer: 0 | 1;
+  cancelable: 0 | 1;
+  returnable: 0 | 1;
+  status_id: number;
+  status: string;
+  document: string;
+  order_id: number;
+  comment: string;
+  united: 0 | 1;
+  order_date: string;
+  order_number: string;
+  delivery: string;
+  delivery_date: string;
+  order_key: string;
+}>
