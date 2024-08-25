@@ -1,19 +1,19 @@
-import { ApiClient } from './ApiClient.js';
-import type { ApiClientConfig } from './Contracts/ApiClientConfig.js';
+import { ApiClient } from './app/ApiClient.js';
+import type { ApiClientConfig } from './types/ApiClientConfig.js';
 import type {
   CreateOrderResponse,
   GetBalanceResponse, GetBrandsResponse,
   GetDeliveriesResponse, GetOrdersResponse,
   GetPayersResponse, GetStatusesResponse,
   GetWarehousesResponse, SearchBrandsResponse, SearchItemsResponse,
-} from './Response.js';
+} from './types/Response.js';
 import type { AxiosResponse } from 'axios';
 import type {
   CreateOrderRequestData, GetOrdersRequestData,
   GetWarehousesRequestData,
   SearchBrandsRequestData,
   SearchItemsRequestData,
-} from './RequestData.js';
+} from './types/RequestData.js';
 
 export class AutoeuroService extends ApiClient {
   constructor(config: ApiClientConfig) {

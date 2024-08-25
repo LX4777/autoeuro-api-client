@@ -1,4 +1,4 @@
-import { ApiClientConfig } from './Contracts/ApiClientConfig.js';
+import { ApiClientConfig } from '../types/ApiClientConfig.js';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export class ApiClient {
