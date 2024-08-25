@@ -27,3 +27,18 @@ export type CreateOrderRequestData = {
   comment?: string;
   delivery_date?: string;
 }
+
+type RequireOnlyOne<T, K extends keyof T = keyof T> =
+  K extends keyof T
+    ? { [P in K]: T[P] } & Partial<Record<Exclude<keyof T, K>, never>>
+    : never;
+
+export type GetOrdersRequestData = RequireOnlyOne<{
+  orders: string[];
+  filters: {
+    from: string;
+    to: string;
+    delivery_key?: string;
+    payer_key?: string;
+  };
+}>;
