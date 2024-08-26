@@ -1,12 +1,12 @@
-export type GetWarehousesRequestData = {
+export interface GetWarehousesRequestData {
   delivery_key: string;
 }
 
-export type SearchBrandsRequestData = {
+export interface SearchBrandsRequestData {
   code: string;
 }
 
-export type SearchItemsRequestData = {
+export interface SearchItemsRequestData {
   brand: string;
   code: string;
   delivery_key: string;
@@ -14,7 +14,7 @@ export type SearchItemsRequestData = {
   with_offers?: 0 | 1;
 }
 
-export type CreateOrderRequestData = {
+export interface CreateOrderRequestData {
   delivery_key: string;
   payer_key: string;
   stock_items: {

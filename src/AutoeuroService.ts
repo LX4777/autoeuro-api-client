@@ -1,5 +1,4 @@
 import { ApiClient } from './app/ApiClient.js';
-import type { ApiClientConfig } from './types/ApiClientConfig.js';
 import type {
   CreateOrderResponse,
   GetBalanceResponse, GetBrandsResponse,
@@ -16,11 +15,7 @@ import type {
 } from './types/RequestData.js';
 
 export class AutoeuroService extends ApiClient {
-  constructor(config: ApiClientConfig) {
-    super(config);
-  }
-
-  private async getResponse<T>(response: Promise<AxiosResponse<T, ApiClientConfig>>): Promise<T> {
+  private async getResponse<T>(response: Promise<AxiosResponse<T>>): Promise<T> {
     return (await response).data;
   }
 

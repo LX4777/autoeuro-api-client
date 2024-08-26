@@ -1,5 +1,11 @@
 import { ApiClientConfig } from '../types/ApiClientConfig.js';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import {
+  CreateOrderRequestData, GetOrdersRequestData,
+  GetWarehousesRequestData,
+  SearchBrandsRequestData,
+  SearchItemsRequestData,
+} from '../types/RequestData.js';
 
 export class ApiClient {
   protected axiosInstance: AxiosInstance;
@@ -14,7 +20,7 @@ export class ApiClient {
     });
   }
 
-  protected async request<T>(endpoint: string, data?: any): Promise<AxiosResponse<T>> {
+  protected async request<T>(endpoint: string, data?: GetWarehousesRequestData | SearchBrandsRequestData | SearchItemsRequestData | CreateOrderRequestData | GetOrdersRequestData): Promise<AxiosResponse<T>> {
     return this.axiosInstance.post<T>(endpoint, data);
   }
 }
