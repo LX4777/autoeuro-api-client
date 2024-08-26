@@ -7,8 +7,10 @@ export class ApiClient {
   constructor(config: ApiClientConfig) {
     this.axiosInstance = axios.create({
       baseURL: config.baseURL,
-      headers: config.headers,
-      timeout: config.timeout,
+      headers: {
+        'Content-Type': 'application/json',
+        key: config.token,
+      },
     });
   }
 
