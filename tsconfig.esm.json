@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/esm",
+    "module": "nodenext", // Или "ESNext" в зависимости от ваших нужд
+    "moduleResolution": "nodenext",
+    "target": "ES2017" // Или ES6
+  },
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "sourceMap": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

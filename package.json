@@ -1,19 +1,23 @@
 {
-  "name": "autoeuro-api",
+  "name": "autoeuro-api-client",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "description": "API клиент для веб-сервиса от компании Авто-Евро",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     }
   },
   "type": "module",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "rimraf ./dist && tsc",
-    "start": "node dist/index.js",
+    "build": "rimraf ./dist && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "start": "node dist/esm/examples/index.js",
     "start:dev": "npm run build && npm run dev",
     "lint": "npx eslint ./src",
     "format": "npx prettier --write './src/**/*.{ts,js,json}'",
@@ -25,7 +29,9 @@
   "devDependencies": {
     "@eslint/js": "^9.6.0",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.6.0",
+    "@typescript-eslint/eslint-plugin": "^7.15.0",
+    "@typescript-eslint/parser": "^7.15.0",
+    "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.2",
@@ -35,8 +41,7 @@
     "typescript-eslint": "^7.15.0"
   },
   "dependencies": {
-    "axios": "^1.7.2",
-    "dotenv": "^16.4.5"
+    "axios": "^1.7.2"
   },
   "nodemonConfig": {
     "watch": [
@@ -44,7 +49,7 @@
     ],
     "ext": ".ts,.js",
     "ignore": [],
-    "exec": "npx ts-node ./src/index.ts"
+    "exec": "npx ts-node ./src/examples/index.ts"
   },
   "prettier": {
     "trailingComma": "all",
