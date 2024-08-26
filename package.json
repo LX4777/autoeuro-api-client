@@ -27,7 +27,7 @@
     "format": "npx prettier --write './src/**/*.{ts,js,json}'",
     "prepare": "husky install"
   },
-  "keywords": [],
+  "keywords": ["autoeuro", "api-client"],
   "author": "Vasiliy Rozhkov <profilrv@gmail.com>",
   "license": "MIT",
   "devDependencies": {
