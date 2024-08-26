@@ -1,8 +1,8 @@
 # Api клиент на NodeJs для веб-сервиса Авто-Евро
 
-Установка:
+Установка из npm:
 ```shell
-npm install git+https://github.com/LX4777/autoeuro-api-client.git
+npm install autoeuro-api-client
 ```
 
 Пример использования:
