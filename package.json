@@ -6,9 +6,15 @@
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
     "./AutoeuroService": {
       "import": "./dist/esm/AutoeuroService.js",
-      "require": "./dist/cjs/AutoeuroService.js"
+      "require": "./dist/cjs/AutoeuroService.js",
+      "types": "./dist/types/AutoeuroService.d.ts"
     },
     "./package.json": "./package.json"
   },
