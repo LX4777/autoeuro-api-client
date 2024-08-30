@@ -7,6 +7,7 @@ export class ApiClient {
                 'Content-Type': 'application/json',
                 key: config.token,
             },
+            timeout: config.timeout,
         });
     }
     async request(endpoint, data) {
