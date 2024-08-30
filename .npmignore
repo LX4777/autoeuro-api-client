@@ -13,3 +13,4 @@ tsconfig.cjs.json
 tsconfig.esm.json
 nodemon.json
 .prettierrc
+*.map
