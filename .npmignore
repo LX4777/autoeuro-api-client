@@ -4,3 +4,4 @@ node_modules/
 .eslintrc.js
 tsconfig.json
 examples/
+.idea
