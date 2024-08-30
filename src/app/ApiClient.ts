@@ -10,6 +10,10 @@ import {
 export class ApiClient {
   protected axiosInstance: AxiosInstance;
 
+  /**
+   * Создаёт экземпляр api-клиента
+   * @param {ApiClientConfig} config
+   */
   constructor(config: ApiClientConfig) {
     this.axiosInstance = axios.create({
       baseURL: config.baseURL,
@@ -21,6 +25,12 @@ export class ApiClient {
     });
   }
 
+  /**
+   * Делает запрос
+   * @param {string} endpoint
+   * @param {GetWarehousesRequestData|SearchBrandsRequestData|SearchItemsRequestData|CreateOrderRequestData|GetOrdersRequestData} data
+   * @protected
+   */
   protected async request<T>(endpoint: string, data?: GetWarehousesRequestData | SearchBrandsRequestData | SearchItemsRequestData | CreateOrderRequestData | GetOrdersRequestData): Promise<AxiosResponse<T>> {
     return this.axiosInstance.post<T>(endpoint, data);
   }
