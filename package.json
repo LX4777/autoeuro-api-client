@@ -2,16 +2,11 @@
   "name": "autoeuro-api-client",
   "version": "1.0.2",
   "description": "API клиент для веб-сервиса от компании Авто-Евро",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/AutoeuroService.js",
+  "module": "dist/esm/AutoeuroService.js",
+  "types": "dist/types/AutoeuroService.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js",
-      "types": "./dist/types/index.d.ts"
-    },
-    "./AutoeuroService": {
       "import": "./dist/esm/AutoeuroService.js",
       "require": "./dist/cjs/AutoeuroService.js",
       "types": "./dist/types/AutoeuroService.d.ts"
