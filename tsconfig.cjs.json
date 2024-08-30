@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist/cjs",
     "module": "CommonJS",
-    "target": "ES2017"
+    "target": "ES2017",
+    "declaration": true,
+    "esModuleInterop": true,
+    "strict": true,
   },
   "include": ["src/**/*"]
 }
