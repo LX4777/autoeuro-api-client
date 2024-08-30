@@ -17,7 +17,7 @@
     "dist",
     "README.md"
   ],
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "npx nodemon",
     "build": "rimraf ./dist && npm run build:cjs && npm run build:esm",
