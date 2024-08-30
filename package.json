@@ -13,10 +13,6 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "dist",
-    "README.md"
-  ],
   "type": "commonjs",
   "scripts": {
     "dev": "npx nodemon",
