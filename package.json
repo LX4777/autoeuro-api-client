@@ -1,6 +1,6 @@
 {
   "name": "autoeuro-api-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "API клиент для веб-сервиса от компании Авто-Евро",
   "main": "dist/cjs/AutoeuroService.js",
   "module": "dist/esm/AutoeuroService.js",
