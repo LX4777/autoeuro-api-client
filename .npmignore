@@ -2,9 +2,14 @@ src/
 node_modules/
 .env
 .eslintrc.js
-tsconfig.json
 examples/
 .idea
 dist/cjs/examples/
 dist/esm/examples/
 dist/types/examples/
+eslint.config.js
+tsconfig.base.json
+tsconfig.cjs.json
+tsconfig.esm.json
+nodemon.json
+.prettierrc
