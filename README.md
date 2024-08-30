@@ -7,10 +7,10 @@ npm install autoeuro-api-client
 
 Пример использования:
 ```ts --пример использования
-// ES Module импорт
-import { AutoeuroService } from 'autoeuro-api-client/AutoeuroService';
-// CommonJS импорт
-const { AutoeuroService } = require('autoeuro-api-client/AutoeuroService');
+// ES Module
+import { AutoeuroService } from 'autoeuro-api-client';
+// CommonJS
+const { AutoeuroService } = require('autoeuro-api-client');
 
 const token = 'YOUR TOKEN HAS TO BE HERE';
 
