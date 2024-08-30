@@ -1,5 +1,8 @@
-import { ApiClient } from './app/ApiClient.js';
-export class AutoeuroService extends ApiClient {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AutoeuroService = void 0;
+const ApiClient_js_1 = require("./app/ApiClient.js");
+class AutoeuroService extends ApiClient_js_1.ApiClient {
     async getResponse(response) {
         return (await response).data;
     }
@@ -34,4 +37,5 @@ export class AutoeuroService extends ApiClient {
         return this.getResponse(this.request('/get_statuses'));
     }
 }
+exports.AutoeuroService = AutoeuroService;
 //# sourceMappingURL=AutoeuroService.js.map
