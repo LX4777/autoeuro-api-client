@@ -49,20 +49,6 @@
   "dependencies": {
     "axios": "^1.7.2"
   },
-  "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
-    "ext": ".ts,.js",
-    "ignore": [],
-    "exec": "npx ts-node ./src/examples/index.ts"
-  },
-  "prettier": {
-    "trailingComma": "all",
-    "singleQuote": true,
-    "printWidth": 120,
-    "tabWidth": 2
-  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint"
