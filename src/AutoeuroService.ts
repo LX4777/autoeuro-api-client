@@ -81,7 +81,19 @@ export class AutoeuroService extends ApiClient {
    * @return {Promise<SearchItemsResponse>}
    */
   async searchItems(data: SearchItemsRequestData): Promise<SearchItemsResponse> {
-    return this.getResponse<SearchItemsResponse>(this.request<SearchItemsResponse>('/search_items', data));
+    const responsePromise = this.getResponse<SearchItemsResponse>(this.request<SearchItemsResponse>('/search_items', data));
+    const response = await responsePromise;
+
+    // Поля по факту приходят в виде строк. поэтому преобразуем их в number или float
+    // @ts-ignore
+    response.DATA = response.DATA.map(item => ({
+      ...item,
+      cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross,
+      price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price,
+      return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross,
+    }));
+
+    return response;
   }
 
   /**
