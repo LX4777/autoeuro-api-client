@@ -14,3 +14,4 @@ tsconfig.esm.json
 nodemon.json
 .prettierrc
 *.map
+LICENSE
