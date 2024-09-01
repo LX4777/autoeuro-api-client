@@ -10,7 +10,10 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
         return this.getResponse(this.request('/get_balance'));
     }
     async getDeliveries() {
-        return this.getResponse(this.request('/get_deliveries'));
+        const responsePromise = this.getResponse(this.request('/get_deliveries'));
+        const response = await responsePromise;
+        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk })));
+        return response;
     }
     async getWarehouses(data) {
         return this.getResponse(this.request('/get_warehouses', data));
@@ -25,7 +28,10 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
         return this.getResponse(this.request('/search_brands', data));
     }
     async searchItems(data) {
-        return this.getResponse(this.request('/search_items', data));
+        const responsePromise = this.getResponse(this.request('/search_items', data));
+        const response = await responsePromise;
+        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross, price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price, return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross })));
+        return response;
     }
     async createOrder(data) {
         return this.getResponse(this.request('/create_order', data));
@@ -34,7 +40,10 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
         return this.getResponse(this.request('/get_orders', data));
     }
     async getStatuses() {
-        return this.getResponse(this.request('/get_statuses'));
+        const responsePromise = this.getResponse(this.request('/get_statuses'));
+        const response = await responsePromise;
+        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id })));
+        return response;
     }
 }
 exports.AutoeuroService = AutoeuroService;

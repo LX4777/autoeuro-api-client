@@ -57,11 +57,11 @@ export type SearchItemsResponse = Response<{
     code: string;
     name: string;
     packing: number;
-    price: string;
+    price: number;
     currency: string;
     amount: number;
     unit: string;
-    return: '0' | '1';
+    return: 0 | 1;
     order_before: string;
     delivery_time: string;
     delivery_time_max: string;
