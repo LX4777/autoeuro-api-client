@@ -41,7 +41,7 @@ export class AutoeuroService extends ApiClient {
     const responsePromise = this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
     const response = await responsePromise;
 
-    // свойство time_shift_msk по факту приходят в виде строк, поэтому преобразуем его в number
+    // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number
     response.DATA = response.DATA.map(item => ({
       ...item,
       time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
@@ -128,6 +128,15 @@ export class AutoeuroService extends ApiClient {
    * @return {Promise<GetStatusesResponse>}
    */
   async getStatuses(): Promise<GetStatusesResponse> {
-    return this.getResponse<GetStatusesResponse>(this.request<GetStatusesResponse>('/get_statuses'));
+    const responsePromise = this.getResponse<GetStatusesResponse>(this.request<GetStatusesResponse>('/get_statuses'));
+    const response = await responsePromise;
+
+    // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number
+    response.DATA = response.DATA.map(item => ({
+      ...item,
+      time_shift_msk: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id,
+    }));
+
+    return response;
   }
 }
