@@ -1,3 +1,13 @@
+/**
+ * Пакет реализует API Client для работы с веб-сервисом компании АО "Авто-Евро"
+ * Автор: Рожков Василий <profilrv@gmail.com> (GitHub: https://github.com/LX4777)
+ *
+ * Лицензия: MIT (https://opensource.org/licenses/MIT)
+ * Данный пакет реализует работу со всеми функциями веб-сервиса дату 01.09.2024
+ *
+ * Для дополнительной информации посетите репозиторий: https://github.com/LX4777/autoeuro-api-client
+ */
+
 import { ApiClient } from './app/ApiClient.js';
 import type {
   CreateOrderResponse,
