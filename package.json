@@ -25,11 +25,14 @@
     "format": "npx prettier --write './src/**/*.{ts,js,json}'",
     "prepare": "husky install"
   },
-  "keywords": ["autoeuro", "api-client"],
+  "keywords": [
+    "autoeuro",
+    "api-client"
+  ],
   "author": "Vasiliy Rozhkov <profilrv@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/LX4777/autoeuro-api-client.git"
+    "url": "git+https://github.com/LX4777/autoeuro-api-client.git"
   },
   "license": "MIT",
   "devDependencies": {
