@@ -32,7 +32,7 @@ export type GetBalanceResponse = Response<{
 export type GetDeliveriesResponse = Response<{
   delivery_key: string;
   name: string;
-  time_shift_msk: number;
+  time_shift_msk: number; // По факту возвращает string
 }>
 
 export type GetWarehousesResponse = Response<{
@@ -59,16 +59,16 @@ export type SearchBrandsResponse = Response<{
 export type SearchItemsResponse = Response<{
   offer_key: string;
   stock: 0 | 1;
-  cross: null | 0 | 1 | 2 | 3 | 10 | 11 | 12;
+  cross: null | 0 | 1 | 2 | 3 | 10 | 11 | 12; // По факту возвращает string
   brand: string;
   code: string;
   name: string;
   packing: number;
-  price: string;
+  price: number; // По факту возвращает string
   currency: string;
   amount: number;
   unit: string;
-  return: '0' | '1';
+  return: 0 | 1; // По факту возвращает string
   order_before: string;
   delivery_time: string;
   delivery_time_max: string;
@@ -109,7 +109,7 @@ export type GetOrdersResponse = Response<{
 
 export type GetStatusesResponse = Response<{
   group: string;
-  status_id: number;
+  status_id: number; // По факту возвращает string
   name: string;
   description: string;
 }>
