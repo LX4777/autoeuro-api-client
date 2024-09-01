@@ -38,7 +38,16 @@ export class AutoeuroService extends ApiClient {
    * @return {Promise<GetDeliveriesResponse>}
    */
   async getDeliveries(): Promise<GetDeliveriesResponse> {
-    return this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
+    const responsePromise = this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
+    const response = await responsePromise;
+
+    // свойство time_shift_msk по факту приходят в виде строк, поэтому преобразуем его в number
+    response.DATA = response.DATA.map(item => ({
+      ...item,
+      time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
+    }));
+
+    return response;
   }
 
   /**
