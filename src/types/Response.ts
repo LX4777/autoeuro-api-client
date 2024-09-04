@@ -19,97 +19,97 @@ export type Response<T> = {
 }
 
 export type GetBalanceResponse = Response<{
-  balance: number;
-  credit: number;
-  ordered: number;
-  reserved: number;
-  limit: number;
-  pay_tomorrow: number;
-  shipping_from: number;
-  active: 0 | 1;
+  balance: number; //float
+  credit: number; //float
+  ordered: number; //float
+  reserved: number; //float
+  limit: number; //float
+  pay_tomorrow: number; //float
+  shipping_from: number; //float
+  active: 0 | 1; //bit
 }>
 
 export type GetDeliveriesResponse = Response<{
-  delivery_key: string;
-  name: string;
-  time_shift_msk: number; // По факту возвращает string
+  delivery_key: string; //string
+  name: string; //string
+  time_shift_msk: number; // float, а по факту приходит string
 }>
 
 export type GetWarehousesResponse = Response<{
-  warehouse_id: string;
-  warehouse_key: string;
-  warehouse_name: string;
+  warehouse_id: string; //string
+  warehouse_key: string; //string
+  warehouse_name: string; //string
 }>
 
 export type GetPayersResponse = Response<{
-  payer_name: string;
-  payer_key: string;
+  payer_name: string; //string
+  payer_key: string; //string
 }>
 
 export type GetBrandsResponse = Response<{
-  brand: string;
+  brand: string; //string
 }>
 
 export type SearchBrandsResponse = Response<{
-  brand: string;
-  code: string;
-  name: string;
+  brand: string; //string
+  code: string; //string
+  name: string; //string
 }>
 
 export type SearchItemsResponse = Response<{
-  offer_key: string;
-  stock: 0 | 1;
-  cross: null | 0 | 1 | 2 | 3 | 10 | 11 | 12; // По факту возвращает string
-  brand: string;
-  code: string;
-  name: string;
-  packing: number;
-  price: number; // По факту возвращает string
-  currency: string;
-  amount: number;
-  unit: string;
-  return: 0 | 1; // По факту возвращает string
-  order_before: string;
-  delivery_time: string;
-  delivery_time_max: string;
-  rejects: number;
-  dealer: 0 | 1;
-  warehouse_name: string;
-  warehouse_key: string;
+  offer_key: string; //string
+  stock: 0 | 1; //bit
+  cross: null | 0 | 1 | 2 | 3 | 10 | 11 | 12; // int, а по факту приходит string
+  brand: string; //string
+  code: string; //string
+  name: string; //string
+  packing: number; //int
+  price: number; //float, а по факту приходит string
+  currency: string; //string
+  amount: number; //int
+  unit: string; //string
+  return: 0 | 1; //bit, а по факту приходит string
+  order_before: string; //datetime
+  delivery_time: string; //datetime
+  delivery_time_max: string; //datetime
+  rejects: number; //float
+  dealer: 0 | 1; //bit
+  warehouse_name: string; //string
+  warehouse_key: string; //string
 }>
 
 export type CreateOrderResponse = Response<{
-  order_id: number;
-  result: boolean;
-  result_description: string;
+  order_id: number; //int
+  result: boolean; //boolean
+  result_description: string; //string
 }>
 
 export type GetOrdersResponse = Response<{
-  brand: string;
-  code: string;
-  name: string;
-  price: number;
-  amount: number;
-  unit: string;
-  dealer: 0 | 1;
-  cancelable: 0 | 1;
-  returnable: 0 | 1;
-  status_id: number;
-  status: string;
-  document: string;
-  order_id: number;
-  comment: string;
-  united: 0 | 1;
-  order_date: string;
-  order_number: string;
-  delivery: string;
-  delivery_date: string;
-  order_key: string;
+  brand: string; //string
+  code: string; //string
+  name: string; //string
+  price: number; //float
+  amount: number; //int
+  unit: string; //string
+  dealer: 0 | 1; //bit
+  cancelable: 0 | 1; //bit
+  returnable: 0 | 1; //bit
+  status_id: number; //int
+  status: string; //string
+  document: string; //string
+  order_id: number; //int
+  comment: string; //string
+  united: 0 | 1; //bit
+  order_date: string; //date
+  order_number: string; //string
+  delivery: string; //string
+  delivery_date: string; //date
+  order_key: string; //date
 }>
 
 export type GetStatusesResponse = Response<{
-  group: string;
-  status_id: number; // По факту возвращает string
-  name: string;
-  description: string;
+  group: string; //string
+  status_id: number; //int, а по факту приходит string
+  name: string; //string
+  description: string; //text
 }>
