@@ -34,7 +34,7 @@ type RequireOnlyOne<T, K extends keyof T = keyof T> =
     : never;
 
 export type GetOrdersRequestData = RequireOnlyOne<{
-  orders: string[];
+  orders: number[]; //[int]
   filters: {
     from: string; //string:10
     to: string; //string:10
