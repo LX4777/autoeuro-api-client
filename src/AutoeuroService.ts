@@ -3,12 +3,12 @@
  * Автор: Рожков Василий <profilrv@gmail.com> (GitHub: https://github.com/LX4777)
  *
  * Лицензия: MIT (https://opensource.org/licenses/MIT)
- * Данный пакет реализует работу со всеми функциями веб-сервиса дату 01.09.2024
+ * Данный пакет реализует работу со всеми функциями веб-сервиса на дату 01.09.2024
  *
  * Для дополнительной информации посетите репозиторий: https://github.com/LX4777/autoeuro-api-client
  */
 
-import { ApiClient } from './app/ApiClient.js';
+import { ApiClient } from './app/ApiClient';
 import type {
   CreateOrderResponse,
   GetBalanceResponse, GetBrandsResponse,
@@ -51,11 +51,13 @@ export class AutoeuroService extends ApiClient {
     const responsePromise = this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
     const response = await responsePromise;
 
-    // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number
-    response.DATA = response.DATA.map(item => ({
-      ...item,
-      time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
-    }));
+    if (Array.isArray(response.DATA)) {
+      // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number
+      response.DATA = response.DATA.map(item => ({
+        ...item,
+        time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
+      }));
+    }
 
     return response;
   }
@@ -103,14 +105,16 @@ export class AutoeuroService extends ApiClient {
     const responsePromise = this.getResponse<SearchItemsResponse>(this.request<SearchItemsResponse>('/search_items', data));
     const response = await responsePromise;
 
-    // Поля по факту приходят в виде строк. поэтому преобразуем их в number или float
-    // @ts-ignore
-    response.DATA = response.DATA.map(item => ({
-      ...item,
-      cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross,
-      price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price,
-      return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross,
-    }));
+    if (Array.isArray(response.DATA)) {
+      // Поля по факту приходят в виде строк. поэтому преобразуем их в number или float
+      // @ts-ignore
+      response.DATA = response.DATA.map(item => ({
+        ...item,
+        cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross,
+        price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price,
+        return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross,
+      }));
+    }
 
     return response;
   }
@@ -141,11 +145,13 @@ export class AutoeuroService extends ApiClient {
     const responsePromise = this.getResponse<GetStatusesResponse>(this.request<GetStatusesResponse>('/get_statuses'));
     const response = await responsePromise;
 
-    // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number
-    response.DATA = response.DATA.map(item => ({
-      ...item,
-      time_shift_msk: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id,
-    }));
+    if (Array.isArray(response.DATA)) {
+      // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number
+      response.DATA = response.DATA.map(item => ({
+        ...item,
+        status_id: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id,
+      }));
+    }
 
     return response;
   }
