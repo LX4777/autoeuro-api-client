@@ -15,3 +15,5 @@ nodemon.json
 .prettierrc
 *.map
 LICENSE
+src/__tests__
+jest.config.js
