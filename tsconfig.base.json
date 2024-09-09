@@ -18,6 +18,9 @@
     ],
     "types": [
       "jest"
-    ],
-  }
+    ]
+  },
+  "exclude": [
+    "src/__tests__",
+  ]
 }
