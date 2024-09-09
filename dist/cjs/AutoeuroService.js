@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AutoeuroService = void 0;
-const ApiClient_js_1 = require("./app/ApiClient.js");
-class AutoeuroService extends ApiClient_js_1.ApiClient {
+const ApiClient_1 = require("./app/ApiClient");
+class AutoeuroService extends ApiClient_1.ApiClient {
     async getResponse(response) {
         return (await response).data;
     }
@@ -12,7 +12,9 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
     async getDeliveries() {
         const responsePromise = this.getResponse(this.request('/get_deliveries'));
         const response = await responsePromise;
-        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk })));
+        if (Array.isArray(response.DATA)) {
+            response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk })));
+        }
         return response;
     }
     async getWarehouses(data) {
@@ -30,7 +32,9 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
     async searchItems(data) {
         const responsePromise = this.getResponse(this.request('/search_items', data));
         const response = await responsePromise;
-        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross, price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price, return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross })));
+        if (Array.isArray(response.DATA)) {
+            response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross, price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price, return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross })));
+        }
         return response;
     }
     async createOrder(data) {
@@ -42,7 +46,9 @@ class AutoeuroService extends ApiClient_js_1.ApiClient {
     async getStatuses() {
         const responsePromise = this.getResponse(this.request('/get_statuses'));
         const response = await responsePromise;
-        response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id })));
+        if (Array.isArray(response.DATA)) {
+            response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { status_id: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id })));
+        }
         return response;
     }
 }
