@@ -11,7 +11,7 @@ class AutoeuroService extends ApiClient_1.ApiClient {
     }
     async getDeliveries() {
         const responsePromise = this.getResponse(this.request('/get_deliveries'));
-        const response = await responsePromise;
+        const response = (await responsePromise);
         if (Array.isArray(response.DATA)) {
             response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk })));
         }
@@ -31,7 +31,7 @@ class AutoeuroService extends ApiClient_1.ApiClient {
     }
     async searchItems(data) {
         const responsePromise = this.getResponse(this.request('/search_items', data));
-        const response = await responsePromise;
+        const response = (await responsePromise);
         if (Array.isArray(response.DATA)) {
             response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross, price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price, return: typeof item.return === 'string' ? Number.parseInt(item.return) : item.cross })));
         }
@@ -45,7 +45,7 @@ class AutoeuroService extends ApiClient_1.ApiClient {
     }
     async getStatuses() {
         const responsePromise = this.getResponse(this.request('/get_statuses'));
-        const response = await responsePromise;
+        const response = (await responsePromise);
         if (Array.isArray(response.DATA)) {
             response.DATA = response.DATA.map(item => (Object.assign(Object.assign({}, item), { status_id: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id })));
         }
