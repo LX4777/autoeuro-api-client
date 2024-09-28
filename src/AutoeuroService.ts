@@ -3,7 +3,7 @@
  * Автор: Рожков Василий <profilrv@gmail.com> (GitHub: https://github.com/LX4777)
  *
  * Лицензия: MIT (https://opensource.org/licenses/MIT)
- * Данный пакет реализует работу со всеми функциями веб-сервиса на дату 01.09.2024
+ * Данный пакет реализует работу со всеми функциями веб-сервиса на дату 01.09.2024.
  *
  * Для дополнительной информации посетите репозиторий: https://github.com/LX4777/autoeuro-api-client
  */
@@ -11,14 +11,21 @@
 import { ApiClient } from './app/ApiClient';
 import type {
   CreateOrderResponse,
-  GetBalanceResponse, GetBrandsResponse,
-  GetDeliveriesResponse, GetOrdersResponse,
-  GetPayersResponse, GetStatusesResponse,
-  GetWarehousesResponse, SearchBrandsResponse, SearchItemsResponse,
+  GetBalanceResponse,
+  GetBrandsResponse,
+  GetDeliveriesResponse,
+  GetOrdersResponse,
+  GetPayersResponse,
+  GetStatusesResponse,
+  GetWarehousesResponse,
+  Response,
+  SearchBrandsResponse,
+  SearchItemsResponse,
 } from './types/Response.js';
 import type { AxiosResponse } from 'axios';
 import type {
-  CreateOrderRequestData, GetOrdersRequestData,
+  CreateOrderRequestData,
+  GetOrdersRequestData,
   GetWarehousesRequestData,
   SearchBrandsRequestData,
   SearchItemsRequestData,
@@ -36,7 +43,7 @@ export class AutoeuroService extends ApiClient {
   }
 
   /**
-   * Получение детальной информации о состоянии баланса личного счета
+   * Получение детальной информации о состоянии баланса личного счёта
    * @return {Promise<GetBalanceResponse>}
    */
   async getBalance(): Promise<GetBalanceResponse> {
@@ -49,17 +56,19 @@ export class AutoeuroService extends ApiClient {
    */
   async getDeliveries(): Promise<GetDeliveriesResponse> {
     const responsePromise = this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
-    const response = await responsePromise;
+    const response = (await responsePromise) as Response<{
+      time_shift_msk: number | string; // float, а по факту приходит string
+    }>;
 
     if (Array.isArray(response.DATA)) {
-      // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number
+      // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number.
       response.DATA = response.DATA.map(item => ({
         ...item,
         time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
       }));
     }
 
-    return response;
+    return response as GetDeliveriesResponse;
   }
 
   /**
@@ -88,7 +97,7 @@ export class AutoeuroService extends ApiClient {
   }
 
   /**
-   * Получение списка брендов у которых есть искомый артикул
+   * Получение списка брендов, у которых есть искомый артикул
    * @param {SearchBrandsRequestData} data
    * @return {Promise<SearchBrandsResponse>}
    */
@@ -103,11 +112,14 @@ export class AutoeuroService extends ApiClient {
    */
   async searchItems(data: SearchItemsRequestData): Promise<SearchItemsResponse> {
     const responsePromise = this.getResponse<SearchItemsResponse>(this.request<SearchItemsResponse>('/search_items', data));
-    const response = await responsePromise;
+    const response = (await responsePromise) as Response<{
+      cross: string | number;
+      price: string | number;
+      return: string | number;
+    }>;
 
     if (Array.isArray(response.DATA)) {
-      // Поля по факту приходят в виде строк. поэтому преобразуем их в number или float
-      // @ts-ignore
+      // Поля по факту приходят в виде строк, поэтому преобразуем их в number или float.
       response.DATA = response.DATA.map(item => ({
         ...item,
         cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross,
@@ -116,7 +128,7 @@ export class AutoeuroService extends ApiClient {
       }));
     }
 
-    return response;
+    return response as SearchItemsResponse;
   }
 
   /**
@@ -143,16 +155,18 @@ export class AutoeuroService extends ApiClient {
    */
   async getStatuses(): Promise<GetStatusesResponse> {
     const responsePromise = this.getResponse<GetStatusesResponse>(this.request<GetStatusesResponse>('/get_statuses'));
-    const response = await responsePromise;
+    const response = (await responsePromise) as Response<{
+      status_id: string | number;
+    }>;
 
     if (Array.isArray(response.DATA)) {
-      // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number
+      // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number.
       response.DATA = response.DATA.map(item => ({
         ...item,
         status_id: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id,
       }));
     }
 
-    return response;
+    return response as GetStatusesResponse;
   }
 }
