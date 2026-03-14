@@ -1,23 +1,36 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiClient = void 0;
-const axios_1 = __importDefault(require("axios"));
 class ApiClient {
     constructor(config) {
-        this.axiosInstance = axios_1.default.create({
-            baseURL: config.baseURL,
-            headers: {
-                'Content-Type': 'application/json',
-                key: config.token,
-            },
-            timeout: config.timeout,
-        });
+        this.config = config;
     }
     async request(endpoint, data) {
-        return this.axiosInstance.post(endpoint, data);
+        const controller = new AbortController();
+        const timeout = this.config.timeout || 10000;
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+        try {
+            const response = await fetch(`${this.config.baseURL}${endpoint}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    key: this.config.token,
+                },
+                body: data ? JSON.stringify(data) : undefined,
+                signal: controller.signal,
+            });
+            const responseData = await response.json();
+            return responseData;
+        }
+        catch (error) {
+            if (error instanceof Error && error.name === 'AbortError') {
+                throw new Error(`Request timeout after ${timeout}ms`);
+            }
+            throw error;
+        }
+        finally {
+            clearTimeout(timeoutId);
+        }
     }
 }
 exports.ApiClient = ApiClient;

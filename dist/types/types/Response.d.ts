@@ -1,4 +1,4 @@
-export type Response<T> = {
+export type Response<T> = ({
     META: {
         resource: string;
         version: string;
@@ -10,7 +10,7 @@ export type Response<T> = {
 } & {
     DATA: T[];
     ERROR: never;
-} | {
+}) | {
     DATA: never;
     ERROR: {
         code: number;
