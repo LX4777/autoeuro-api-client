@@ -1,5 +1,4 @@
 import { ApiClientConfig } from '../types/ApiClientConfig.js';
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import {
   CreateOrderRequestData,
   GetOrdersRequestData,
@@ -9,21 +8,14 @@ import {
 } from '../types/RequestData.js';
 
 export class ApiClient {
-  protected axiosInstance: AxiosInstance;
+  protected config: ApiClientConfig;
 
   /**
    * Создаёт экземпляр api-клиента
    * @param {ApiClientConfig} config
    */
   constructor(config: ApiClientConfig) {
-    this.axiosInstance = axios.create({
-      baseURL: config.baseURL,
-      headers: {
-        'Content-Type': 'application/json',
-        key: config.token,
-      },
-      timeout: config.timeout,
-    });
+    this.config = config;
   }
 
   /**
@@ -40,7 +32,31 @@ export class ApiClient {
       | SearchItemsRequestData
       | CreateOrderRequestData
       | GetOrdersRequestData,
-  ): Promise<AxiosResponse<T>> {
-    return this.axiosInstance.post<T>(endpoint, data);
+  ): Promise<T> {
+    const controller = new AbortController();
+    const timeout = this.config.timeout || 10000;
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      const response = await fetch(`${this.config.baseURL}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          key: this.config.token,
+        },
+        body: data ? JSON.stringify(data) : undefined,
+        signal: controller.signal,
+      });
+
+      const responseData: T = await response.json();
+      return responseData;
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        throw new Error(`Request timeout after ${timeout}ms`);
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 }

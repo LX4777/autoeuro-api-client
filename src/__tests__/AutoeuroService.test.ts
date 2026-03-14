@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   GetBalanceResponse,
   GetDeliveriesResponse,
@@ -13,16 +12,18 @@ import {
 } from '../types/Response';
 import { AutoeuroService } from '../AutoeuroService';
 
-// Мок axios
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-
 describe('AutoeuroService', () => {
   let service: AutoeuroService;
+  let mockedFetch: jest.Mock;
 
   beforeEach(() => {
-    axios.create = jest.fn(() => axios);
+    mockedFetch = jest.fn();
+    global.fetch = mockedFetch;
     service = new AutoeuroService({ token: '', baseURL: '' });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('тест /get_balance', async () => {
@@ -50,12 +51,23 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getBalance();
 
     expect(result.DATA[0]).toEqual(mockData.DATA[0]);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_balance', undefined);
+    expect(mockedFetch).toHaveBeenCalledWith('/get_balance', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: undefined,
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('тест /get_deliveries', async () => {
@@ -78,13 +90,23 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    // mockedAxios.post.mockImplementation(() => Promise.resolve({ data: mockData }));
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getDeliveries();
 
     expect(result.DATA[0]).toEqual(mockData.DATA[0]);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_deliveries', undefined);
+    expect(mockedFetch).toHaveBeenCalledWith('/get_deliveries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: undefined,
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('тест /get_deliveries - с неверным типом данных в time_shift_msk', async () => {
@@ -107,8 +129,10 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    // mockedAxios.post.mockImplementation(() => Promise.resolve({ data: mockData }));
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getDeliveries();
 
@@ -135,12 +159,23 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getWarehouses({ delivery_key: 'KEY' });
 
     expect(result.DATA[0]).toEqual(mockData.DATA[0]);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_warehouses', { delivery_key: 'KEY' });
+    expect(mockedFetch).toHaveBeenCalledWith('/get_warehouses', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({ delivery_key: 'KEY' }),
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('тест /get_payers', async () => {
@@ -162,12 +197,23 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getPayers();
 
     expect(result.DATA[0]).toEqual(mockData.DATA[0]);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_payers', undefined);
+    expect(mockedFetch).toHaveBeenCalledWith('/get_payers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: undefined,
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('тест /get_brands', async () => {
@@ -188,12 +234,23 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.getBrands();
 
     expect(result).toEqual(mockData);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_brands', undefined);
+    expect(mockedFetch).toHaveBeenCalledWith('/get_brands', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: undefined,
+      signal: expect.any(AbortSignal),
+    });
   });
 
   it('test /search_items', async () => {
@@ -232,16 +289,27 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.searchItems({ brand: 'Brand One', code: 'CODE1', delivery_key: 'KEY' });
 
     // Проверяем что данные корректно преобразуются
     expect(result).toEqual(mockData);
-    expect(mockedAxios.post).toHaveBeenCalledWith('/search_items', {
-      brand: 'Brand One',
-      code: 'CODE1',
-      delivery_key: 'KEY',
+    expect(mockedFetch).toHaveBeenCalledWith('/search_items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({
+        brand: 'Brand One',
+        code: 'CODE1',
+        delivery_key: 'KEY',
+      }),
+      signal: expect.any(AbortSignal),
     });
   });
 
@@ -281,7 +349,10 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockData });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockData,
+    });
 
     const result = await service.searchItems({ brand: 'Brand One', code: 'CODE1', delivery_key: 'KEY' });
 
@@ -294,10 +365,18 @@ describe('AutoeuroService', () => {
         cross: Number.parseInt(row.cross),
       })),
     );
-    expect(mockedAxios.post).toHaveBeenCalledWith('/search_items', {
-      brand: 'Brand One',
-      code: 'CODE1',
-      delivery_key: 'KEY',
+    expect(mockedFetch).toHaveBeenCalledWith('/search_items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({
+        brand: 'Brand One',
+        code: 'CODE1',
+        delivery_key: 'KEY',
+      }),
+      signal: expect.any(AbortSignal),
     });
   });
 
@@ -308,11 +387,22 @@ describe('AutoeuroService', () => {
       DATA: [{ brand: 'Brand1', code: '123', name: 'Test Brand' }],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockResponse,
+    });
 
     const result = await service.searchBrands({ code: '123' });
 
-    expect(mockedAxios.post).toHaveBeenCalledWith('/search_brands', { code: '123' });
+    expect(mockedFetch).toHaveBeenCalledWith('/search_brands', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({ code: '123' }),
+      signal: expect.any(AbortSignal),
+    });
     expect(result.DATA[0].code).toBe('123');
   });
 
@@ -323,7 +413,10 @@ describe('AutoeuroService', () => {
       ERROR: { code: 400, message: 'Bad Request' },
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockErrorResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockErrorResponse,
+    });
 
     const result = await service.searchBrands({ code: '123' });
 
@@ -338,14 +431,25 @@ describe('AutoeuroService', () => {
       DATA: [{ order_id: 123, result: true, result_description: 'Order created successfully' }],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockResponse,
+    });
 
     const result = await service.createOrder({ delivery_key: '', payer_key: '', stock_items: [] });
 
-    expect(mockedAxios.post).toHaveBeenCalledWith('/create_order', {
-      delivery_key: '',
-      payer_key: '',
-      stock_items: [],
+    expect(mockedFetch).toHaveBeenCalledWith('/create_order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({
+        delivery_key: '',
+        payer_key: '',
+        stock_items: [],
+      }),
+      signal: expect.any(AbortSignal),
     });
     expect(result.DATA[0].result).toBe(true);
     expect(result.DATA[0].order_id).toBe(123);
@@ -358,7 +462,10 @@ describe('AutoeuroService', () => {
       ERROR: { code: 500, message: 'Internal Server Error' },
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockErrorResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockErrorResponse,
+    });
 
     const result = await service.createOrder({ delivery_key: '', payer_key: '', stock_items: [] });
 
@@ -396,11 +503,22 @@ describe('AutoeuroService', () => {
       ],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockResponse,
+    });
 
     const result = await service.getOrders({ orders: [456] });
 
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_orders', { orders: [456] });
+    expect(mockedFetch).toHaveBeenCalledWith('/get_orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: JSON.stringify({ orders: [456] }),
+      signal: expect.any(AbortSignal),
+    });
     expect(result).toEqual(mockResponse);
   });
 
@@ -411,7 +529,10 @@ describe('AutoeuroService', () => {
       ERROR: { code: 404, message: 'Orders not found' },
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockErrorResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockErrorResponse,
+    });
 
     const result = await service.getOrders({ orders: [456] });
 
@@ -426,11 +547,22 @@ describe('AutoeuroService', () => {
       DATA: [{ group: 'Group1', status_id: 1, name: 'Status1', description: 'Test description' }],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockResponse,
+    });
 
     const result = await service.getStatuses();
 
-    expect(mockedAxios.post).toHaveBeenCalledWith('/get_statuses', undefined);
+    expect(mockedFetch).toHaveBeenCalledWith('/get_statuses', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        key: '',
+      },
+      body: undefined,
+      signal: expect.any(AbortSignal),
+    });
     expect(result.DATA[0].status_id).toBe(1);
     expect(result.DATA[0].name).toBe('Status1');
   });
@@ -441,7 +573,10 @@ describe('AutoeuroService', () => {
       DATA: [{ group: 'Group1', status_id: '1', name: 'Status1', description: 'Test description' }],
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockResponse,
+    });
 
     const result = await service.getStatuses();
 
@@ -455,7 +590,10 @@ describe('AutoeuroService', () => {
       ERROR: { code: 500, message: 'Internal Server Error' },
     };
 
-    mockedAxios.post.mockResolvedValue({ data: mockErrorResponse });
+    mockedFetch.mockResolvedValue({
+      ok: true,
+      json: async () => mockErrorResponse,
+    });
 
     const result = await service.getStatuses();
 
