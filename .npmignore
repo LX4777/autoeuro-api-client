@@ -17,3 +17,4 @@ nodemon.json
 LICENSE
 src/__tests__
 jest.config.js
+AGENTS.md
