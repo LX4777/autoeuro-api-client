@@ -55,16 +55,19 @@ export class AutoeuroService extends ApiClient {
    * @return {Promise<GetDeliveriesResponse>}
    */
   async getDeliveries(): Promise<GetDeliveriesResponse> {
-    const responsePromise = this.getResponse<GetDeliveriesResponse>(this.request<GetDeliveriesResponse>('/get_deliveries'));
+    const responsePromise = this.getResponse<GetDeliveriesResponse>(
+      this.request<GetDeliveriesResponse>('/get_deliveries'),
+    );
     const response = (await responsePromise) as Response<{
       time_shift_msk: number | string; // float, а по факту приходит string
     }>;
 
     if (Array.isArray(response.DATA)) {
       // свойство time_shift_msk по факту приходит в виде строки, поэтому преобразуем его в number.
-      response.DATA = response.DATA.map(item => ({
+      response.DATA = response.DATA.map((item) => ({
         ...item,
-        time_shift_msk: typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
+        time_shift_msk:
+          typeof item.time_shift_msk === 'string' ? Number.parseInt(item.time_shift_msk) : item.time_shift_msk,
       }));
     }
 
@@ -111,7 +114,9 @@ export class AutoeuroService extends ApiClient {
    * @return {Promise<SearchItemsResponse>}
    */
   async searchItems(data: SearchItemsRequestData): Promise<SearchItemsResponse> {
-    const responsePromise = this.getResponse<SearchItemsResponse>(this.request<SearchItemsResponse>('/search_items', data));
+    const responsePromise = this.getResponse<SearchItemsResponse>(
+      this.request<SearchItemsResponse>('/search_items', data),
+    );
     const response = (await responsePromise) as Response<{
       cross: string | number;
       price: string | number;
@@ -120,7 +125,7 @@ export class AutoeuroService extends ApiClient {
 
     if (Array.isArray(response.DATA)) {
       // Поля по факту приходят в виде строк, поэтому преобразуем их в number или float.
-      response.DATA = response.DATA.map(item => ({
+      response.DATA = response.DATA.map((item) => ({
         ...item,
         cross: typeof item.cross === 'string' ? Number.parseInt(item.cross) : item.cross,
         price: typeof item.price === 'string' ? Number.parseFloat(item.price) : item.price,
@@ -161,7 +166,7 @@ export class AutoeuroService extends ApiClient {
 
     if (Array.isArray(response.DATA)) {
       // свойство status_id по факту приходит в виде строки, поэтому преобразуем его в number.
-      response.DATA = response.DATA.map(item => ({
+      response.DATA = response.DATA.map((item) => ({
         ...item,
         status_id: typeof item.status_id === 'string' ? Number.parseInt(item.status_id) : item.status_id,
       }));

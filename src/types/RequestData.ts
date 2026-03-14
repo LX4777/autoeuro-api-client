@@ -28,10 +28,9 @@ export interface CreateOrderRequestData {
   delivery_date?: string; //string
 }
 
-type RequireOnlyOne<T, K extends keyof T = keyof T> =
-  K extends keyof T
-    ? { [P in K]: T[P] } & Partial<Record<Exclude<keyof T, K>, never>>
-    : never;
+type RequireOnlyOne<T, K extends keyof T = keyof T> = K extends keyof T
+  ? { [P in K]: T[P] } & Partial<Record<Exclude<keyof T, K>, never>>
+  : never;
 
 export type GetOrdersRequestData = RequireOnlyOne<{
   orders: number[]; //[int]

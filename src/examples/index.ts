@@ -9,12 +9,12 @@ const client = new AutoeuroService({
 });
 
 const example = async () => {
-  const response =  await client.getBalance().catch((err) => {
-    console.error(err)
-    return null
-  })
+  const response = await client.getBalance().catch((err) => {
+    console.error(err);
+    return null;
+  });
 
   console.log(response);
-}
+};
 
-example()
+example();

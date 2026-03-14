@@ -13,7 +13,6 @@ import {
 } from '../types/Response';
 import { AutoeuroService } from '../AutoeuroService';
 
-
 // Мок axios
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -238,9 +237,7 @@ describe('AutoeuroService', () => {
     const result = await service.searchItems({ brand: 'Brand One', code: 'CODE1', delivery_key: 'KEY' });
 
     // Проверяем что данные корректно преобразуются
-    expect(result).toEqual(
-      mockData,
-    );
+    expect(result).toEqual(mockData);
     expect(mockedAxios.post).toHaveBeenCalledWith('/search_items', {
       brand: 'Brand One',
       code: 'CODE1',
@@ -290,7 +287,7 @@ describe('AutoeuroService', () => {
 
     // Проверяем что данные корректно преобразуются
     expect(result.DATA).toEqual(
-      mockData.DATA.map(row => ({
+      mockData.DATA.map((row) => ({
         ...row,
         return: Number.parseInt(row.return),
         price: Number.parseFloat(row.price),
@@ -373,28 +370,30 @@ describe('AutoeuroService', () => {
     //@ts-ignore
     const mockResponse: GetOrdersResponse = {
       META: { resource: 'orders', version: '1.0', section: 'test', parameters: {}, date: '', user_id: '' },
-      DATA: [{
-        brand: 'Brand1',
-        code: '',
-        order_id: 456,
-        price: 10,
-        status_id: 2,
-        amount: 3,
-        cancelable: 0,
-        dealer: 1,
-        name: '',
-        comment: '',
-        delivery: '',
-        delivery_date: '',
-        order_date: '',
-        order_key: 'order_key',
-        order_number: '23231',
-        unit: 'ps',
-        document: '123',
-        returnable: 1,
-        status: 'ok',
-        united: 0,
-      }],
+      DATA: [
+        {
+          brand: 'Brand1',
+          code: '',
+          order_id: 456,
+          price: 10,
+          status_id: 2,
+          amount: 3,
+          cancelable: 0,
+          dealer: 1,
+          name: '',
+          comment: '',
+          delivery: '',
+          delivery_date: '',
+          order_date: '',
+          order_key: 'order_key',
+          order_number: '23231',
+          unit: 'ps',
+          document: '123',
+          returnable: 1,
+          status: 'ok',
+          united: 0,
+        },
+      ],
     };
 
     mockedAxios.post.mockResolvedValue({ data: mockResponse });
@@ -427,7 +426,7 @@ describe('AutoeuroService', () => {
       DATA: [{ group: 'Group1', status_id: 1, name: 'Status1', description: 'Test description' }],
     };
 
-    mockedAxios.post.mockResolvedValue({data: mockResponse});
+    mockedAxios.post.mockResolvedValue({ data: mockResponse });
 
     const result = await service.getStatuses();
 
@@ -439,10 +438,10 @@ describe('AutoeuroService', () => {
   it('тест /get_statuses - с неверным типом status_is', async () => {
     const mockResponse = {
       META: { resource: 'statuses', version: '1.0', section: 'test', parameters: {}, date: '', user_id: '' },
-      DATA: [{ group: 'Group1', status_id: "1", name: 'Status1', description: 'Test description' }],
+      DATA: [{ group: 'Group1', status_id: '1', name: 'Status1', description: 'Test description' }],
     };
 
-    mockedAxios.post.mockResolvedValue({data: mockResponse});
+    mockedAxios.post.mockResolvedValue({ data: mockResponse });
 
     const result = await service.getStatuses();
 
@@ -452,11 +451,11 @@ describe('AutoeuroService', () => {
   it('тест /get_statuses - получение ошибки от веб-сервиса', async () => {
     //@ts-ignore
     const mockErrorResponse: GetStatusesResponse = {
-        META: { resource: 'statuses', version: '1.0', section: 'test', parameters: {}, date: '', user_id: '' },
-        ERROR: { code: 500, message: 'Internal Server Error' },
+      META: { resource: 'statuses', version: '1.0', section: 'test', parameters: {}, date: '', user_id: '' },
+      ERROR: { code: 500, message: 'Internal Server Error' },
     };
 
-    mockedAxios.post.mockResolvedValue({data: mockErrorResponse});
+    mockedAxios.post.mockResolvedValue({ data: mockErrorResponse });
 
     const result = await service.getStatuses();
 
@@ -464,5 +463,3 @@ describe('AutoeuroService', () => {
     expect(result.ERROR.message).toBe('Internal Server Error');
   });
 });
-
-
